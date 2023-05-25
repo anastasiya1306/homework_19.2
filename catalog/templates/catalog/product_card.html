@@ -1,0 +1,41 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+    <div class="cool">
+        <div class="card">
+            <div class="card-body">
+                <img src="/media/{{ object.preview }}" style="max-width: 20%;" alt="Image">
+                <table class="table">
+                    <tr>
+                        <td>Название</td>
+                        <td>{{ object.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Описание</td>
+                        <td>{{ object.description }}</td>
+                    </tr>
+                    <tr>
+                        <td>Категория</td>
+                        <td>{{ object.category }}</td>
+                    </tr>
+                    <tr>
+                        <td>Цена, руб</td>
+                        <td>{{ object.price }}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата создания</td>
+                        <td>{{ object.date_creation }}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата изменения</td>
+                        <td>{{ object.date_modified }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'main:home' %}" class="btn btn-primary"><< Назад</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
