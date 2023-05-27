@@ -1,11 +1,11 @@
 [
   {
     "model": "catalog.product",
-    "pk": 1,
+    "pk": 11,
     "fields": {
       "name": "Samsung Galaxy S23+ 256GB",
       "description": "Смартфон Samsung Galaxy S23+ Black — модель с безрамочным экраном диагональю 6,6 дюйма, выполненным по технологии Dynamic AMOLED 2X. Разрешение — 2340x1080 пикселей, частота обновления — 120 Гц. Отображается 16 млн цветов. Надежную защиту дисплея обеспечивает стекло Corning Gorilla Glass 8.",
-      "preview": "",
+      "preview": "images/d2515f00-bfca-11ed-8a22-a8a1598bc6ff_90fda435-c3b5-11ed-8a22-a8a1598bc6ff.jpg",
       "category": "Смартфоны",
       "price": 87999,
       "date_creation": "2023-05-20",
@@ -14,11 +14,11 @@
   },
   {
     "model": "catalog.product",
-    "pk": 2,
+    "pk": 12,
     "fields": {
       "name": "Смартфон Honor 70 8+256Gb",
       "description": "Смартфон Honor 70 в стеклянном корпусе цвета Midnight Black работает на операционной системе Android Magic UI 6.1. Быстродействие и высокую производительность обеспечивают 8 Гб оперативной памяти и восьмиядерный процессор Qualcomm Snapdragon 778G Plus 5G. Объем внутренней памяти — 256 Гб.",
-      "preview": "",
+      "preview": "images/black_common_front_back.png",
       "category": "Смартфоны",
       "price": 40499,
       "date_creation": "2023-05-20",
@@ -27,11 +27,11 @@
   },
   {
     "model": "catalog.product",
-    "pk": 3,
+    "pk": 13,
     "fields": {
       "name": "Телевизор Samsung QE55QN90BAU",
       "description": "Телевизор Samsung QE55QN90BAU оснащен технологией подсветки Quantum Matrix, которая отвечает за высокую детализацию картинки даже при условии высокой яркости в сценах.",
-      "preview": "",
+      "preview": "images/123277.5802x.jpg",
       "category": "Телевизоры",
       "price": 166499,
       "date_creation": "2023-05-20",
@@ -40,11 +40,11 @@
   },
   {
     "model": "catalog.product",
-    "pk": 4,
+    "pk": 14,
     "fields": {
       "name": "Ноутбук игровой Thunderobot 911 Plus X",
       "description": "Игровой ноутбук Thunderobot 911 Plus X работает на базе операционной системы Windows 11 Pro 64. 17,3-дюймовый экран с матовой поверхностью поддерживает разрешение 1920х1080 пикселей.",
-      "preview": "",
+      "preview": "images/2.png",
       "category": "Ноутбуки",
       "price": 85999,
       "date_creation": "2023-05-20",
@@ -53,11 +53,11 @@
   },
   {
     "model": "catalog.product",
-    "pk": 5,
+    "pk": 15,
     "fields": {
       "name": "Холодильник LG DoorCooling+ GA-B509CEQM",
       "description": "Холодильник LG DoorCooling+ GA-B509CEQM, бежевый — двухкамерная модель общим полезным объемом 384 л, из них 107 л приходятся на расположенное снизу морозильное отделение.",
-      "preview": "",
+      "preview": "images/1501099_v02_b.jpg",
       "category": "Холодильники",
       "price": 64999,
       "date_creation": "2023-05-20",
@@ -66,7 +66,7 @@
   },
   {
     "model": "catalog.category",
-    "pk": 1,
+    "pk": 9,
     "fields": {
       "name": "Ноутбуки",
       "description": "Портативный персональный компьютер, в корпусе которого объединены типичные компоненты ПК"
@@ -74,7 +74,7 @@
   },
   {
     "model": "catalog.category",
-    "pk": 2,
+    "pk": 10,
     "fields": {
       "name": "Смартфоны",
       "description": "Мобильный телефон, дополненный функциональностью умного устройства"
@@ -82,7 +82,7 @@
   },
   {
     "model": "catalog.category",
-    "pk": 3,
+    "pk": 11,
     "fields": {
       "name": "Телевизоры",
       "description": "Многофункциональный центр развлечений, позволяющий смотреть фильмы дома вместо кинотеатра"
@@ -90,7 +90,7 @@
   },
   {
     "model": "catalog.category",
-    "pk": 4,
+    "pk": 12,
     "fields": {
       "name": "Холодильники",
       "description": "Устройство для хранения продуктов"
