@@ -1,5 +1,5 @@
 {% extends 'catalog/base.html' %}
-
+{% load mediapath %}
 {% block content %}
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Skystore</h1>
@@ -18,7 +18,7 @@
                     <p class="card-text mb-auto">{{ object.description| truncatechars:100 }}</p>
                     <a href="{% url 'catalog:product_item' object.pk  %}">Продолжить</a>
                 </div>
-                <img src="/media/{{ object.preview }}" style="max-width: 20%;" alt="Image">
+                <img src="{% mediapath object.preview %}" style="max-width: 20%;" alt="Image">
             </div>
         </div>
     {% endfor %}
