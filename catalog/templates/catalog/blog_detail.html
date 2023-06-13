@@ -1,0 +1,33 @@
+{% extends 'catalog/base.html' %}
+{% load mediapath %}
+{% block content %}
+    <div class="cool">
+        <div class="card">
+            <div class="card-body">
+                <img src="{% mediapath object.preview %}" style="max-width: 20%;" alt="Image">
+                <table class="table">
+                    <tr>
+                        <td>Заголовок</td>
+                        <td>{{ object.title }}</td>
+                    </tr>
+                    <tr>
+                        <td>Содержание</td>
+                        <td>{{ object.description }}</td>
+                    </tr>
+                    <tr>
+                        <td>Дата создания</td>
+                        <td>{{ object.date_creation }}</td>
+                    </tr>
+                    <tr>
+                        <td>Количество просмотров</td>
+                        <td>{{ object.count_views }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'main:blog_list' %}" class="btn btn-primary"><< Назад</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

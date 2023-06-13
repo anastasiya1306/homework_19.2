@@ -1,21 +1,75 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from catalog.models import Product
+from catalog.models import Product, Blog
 
 
-def get_home(request):
-    context = {
-        'object_list': Product.objects.all()
+class ProductListView(ListView):
+    model = Product
+    extra_context = {
+        'title': 'Главная'
     }
-    return render(request, 'catalog/home.html', context)
+
 
 def get_contacts(request):
-    return render(request, 'catalog/contacts.html')
-
-def product(request, pk):
-    product_item = Product.objects.get(pk=pk)
     context = {
-        'object': product_item,
-        'title': product_item,
+        'title': 'Контакты'
     }
-    return render(request, 'catalog/product_card.html', context)
+    return render(request, 'catalog/contacts.html', context)
+
+
+class ProductDetailView(DetailView):
+    model = Product
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = context_data['object']
+        return context_data
+
+
+class BlogListView(ListView):
+    model = Blog
+    extra_context = {
+        'title': 'Статьи'
+    }
+
+    def get_queryset(self):
+        """Выводит список статей с положительным признаком публикации"""
+        queryset = super().get_queryset()
+        queryset = queryset.filter(is_publication=True)
+        return queryset
+
+
+class BlogDetailView(DetailView):
+    model = Blog
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['title'] = context_data['object']
+        return context_data
+
+    def get_object(self, **kwargs):
+        views = super().get_object(**kwargs)
+        views.count_views += 1
+        views.save()
+        return views
+
+
+class BlogCreateView(CreateView):
+    model = Blog
+    fields = ('title', 'description', 'preview', 'is_publication')
+    success_url = reverse_lazy('main:blog_list')
+
+
+class BlogUpdateView(UpdateView):
+    model = Blog
+    fields = ('title', 'description', 'preview', 'is_publication')
+
+    def get_success_url(self):
+        return reverse('main:blog_item', kwargs={'pk': self.object.pk})
+
+
+class BlogDeleteView(DeleteView):
+    model = Blog
+    success_url = reverse_lazy('main:blog_list')
