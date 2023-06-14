@@ -6,7 +6,7 @@
             <div class="mb-1 text-muted">{{ object.date_creation }}</div>
             <p class="card-text mb-auto">{{ object.description| truncatechars:150 }}</p>
             <li class="list-group">Количество просмотров: {{ object.count_views }}</li>
-            <a href="{% url 'main:blog_item' object.pk %}">Читать статью..</a>
+            <a href="{% url 'main:blog_item' object.slug %}">Читать статью..</a>
             <a class="alert-danger" href="{% url 'main:blog_update' object.pk %}">>>Изменить</a>
             <a class="alert-warning" href="{% url 'main:blog_delete' object.pk %}">>>Удалить</a>
         </div>

@@ -58,16 +58,16 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ('title', 'description', 'preview', 'is_publication')
+    fields = ('title', 'slug', 'description', 'preview', 'is_publication')
     success_url = reverse_lazy('main:blog_list')
 
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ('title', 'description', 'preview', 'is_publication')
+    fields = ('title', 'slug', 'description', 'preview', 'is_publication')
 
     def get_success_url(self):
-        return reverse('main:blog_item', kwargs={'pk': self.object.pk})
+        return reverse('main:blog_item', kwargs={'slug': self.object.slug})
 
 
 class BlogDeleteView(DeleteView):
