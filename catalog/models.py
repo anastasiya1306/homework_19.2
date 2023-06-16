@@ -50,10 +50,10 @@ class Blog(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        """Преобразование заголовка в slug"""
         if not self.slug:
             #Транслитерация заголовка статьи с русского на английский
             title_translate = translit(self.title, 'ru', reversed=True)
-            #Динамическое заполнение slug
             self.slug = slugify(title_translate, allow_unicode=True)
         super().save(*args, **kwargs)
 
