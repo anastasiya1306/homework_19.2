@@ -58,7 +58,7 @@ class BlogDetailView(DetailView):
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ('title', 'slug', 'description', 'preview', 'is_publication')
+    fields = ('title', 'description', 'preview', 'is_publication')
     success_url = reverse_lazy('main:blog_list')
 
 
