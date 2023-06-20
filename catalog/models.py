@@ -52,7 +52,7 @@ class Blog(models.Model):
     def save(self, *args, **kwargs):
         """Преобразование заголовка в slug"""
         if not self.slug:
-            #Транслитерация заголовка статьи с русского на английский
+            # Транслитерация заголовка статьи с русского на английский
             title_translate = translit(self.title, 'ru', reversed=True)
             self.slug = slugify(title_translate, allow_unicode=True)
         super().save(*args, **kwargs)
@@ -63,3 +63,17 @@ class Blog(models.Model):
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
+
+
+class Version(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='продукт')
+    version_number = models.CharField(max_length=150, verbose_name='Номер версии')
+    name_version = models.CharField(max_length=150, verbose_name='Название версии')
+    is_active = models.BooleanField(default=True, verbose_name='Признак текущей версии')
+
+    def __str__(self):
+        return self.name_version
+
+    class Meta:
+        verbose_name = 'Версия'
+        verbose_name_plural = 'Версии'
