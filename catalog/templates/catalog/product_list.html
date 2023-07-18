@@ -7,7 +7,7 @@
             продать</p>
     </div>
     <div class="container">
-    <a href="{% url 'main:product_create' %}" class="btn btn-primary">Добавить продукт</a>
+        <a href="{% url 'main:product_create' %}" class="btn btn-primary">Добавить продукт</a>
     </div>
 
     {% for object in object_list %}
@@ -16,20 +16,26 @@
                 <div class="card-body d-flex flex-column align-items-start">
                     <strong class="d-inline-block mb-2 text-primary">{{ object.category }}</strong>
                     <h3 class="mb-0">
-                        <a class="text-dark" href="{% url 'main:product_item' object.pk  %}">{{ object.name }}</a>
+                        <a class="text-dark" href="{% url 'main:product_item' object.pk %}">{{ object.name }}</a>
                     </h3>
                     <div class="mb-1 text-muted">{{ object.date_creation }}</div>
                     <p class="card-text mb-auto">{{ object.description| truncatechars:100 }}</p>
-                    <a href="{% url 'main:product_item' object.pk  %}">Продолжить</a>
+                    <a href="{% url 'main:product_item' object.pk %}">Продолжить</a>
                     {# version_set.all - получаем все версии, связанные с данным продуктом #}
                     {% for version in object.version_set.all %}
                         {% if version.is_active %}
-                        <h7>Номер версии: {{version.version_number}}</h7>
-                        <h7>Активная версия: {{ version.name_version }}</h7>
+                            <h7>Номер версии: {{ version.version_number }}</h7>
+                            <h7>Активная версия: {{ version.name_version }}</h7>
                         {% endif %}
                     {% endfor %}
-                    <a class="alert-danger" href="{% url 'main:product_update' object.pk %}">>>Изменить</a>
-                    <a class="alert-warning" href="{% url 'main:product_delete' object.pk %}">>>Удалить</a>
+                    {% if user.is_authenticated %}
+                        {% if object.user == user.email or perms.catalog.change_description_product %}
+                            <a class="alert-danger" href="{% url 'main:product_update' object.pk %}">>>Изменить</a>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <a class="alert-warning" href="{% url 'main:product_delete' object.pk %}">>>Удалить</a>
+                        {% endif %}
+                    {% endif %}
                 </div>
                 <img src="{% mediapath object.preview %}" style="max-width: 20%;" alt="Image">
             </div>
