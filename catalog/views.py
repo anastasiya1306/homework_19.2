@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
@@ -7,20 +8,24 @@ from catalog.forms import ProductForm, VersionForm
 from catalog.models import Product, Blog, Version
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
     extra_context = {
         'title': 'Главная'
     }
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('main:home')
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-class ProductUpdateView(UpdateView):
+
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('main:home')
@@ -45,7 +50,7 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
 
     def get_context_data(self, **kwargs):
@@ -54,9 +59,12 @@ class ProductDetailView(DetailView):
         return context_data
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('main:home')
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
 
 class BlogListView(ListView):

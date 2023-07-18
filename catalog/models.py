@@ -7,6 +7,14 @@ NULLABLE = {'blank': True, 'null': True}
 
 
 class Product(models.Model):
+    ACTIV = 'Активна'
+    NO_ACTIV = 'Не активна'
+
+    SELECT_STATUS = [
+        (ACTIV, 'Активна'),
+        (NO_ACTIV, 'Не активна'),
+    ]
+
     name = models.CharField(max_length=150, verbose_name='Наименование')
     description = models.TextField(verbose_name='Описание')
     preview = models.ImageField(upload_to='images/', verbose_name='Изображение', **NULLABLE)
@@ -14,6 +22,9 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='Цена за покупку')
     date_creation = models.DateField(verbose_name='Дата создания')
     date_modified = models.DateField(verbose_name='Дата последнего изменения')
+    user = models.CharField(max_length=50, verbose_name='Автор', **NULLABLE)
+    status = models.CharField(max_length=50, default=NO_ACTIV, choices=SELECT_STATUS, verbose_name='Статус')
+
 
     def __str__(self):
         return f'{self.name} {self.description} {self.price}'
@@ -22,6 +33,20 @@ class Product(models.Model):
         verbose_name = 'продукт'
         verbose_name_plural = 'продукты'
         ordering = ('name',)
+        permissions = [
+            (
+                'set_published_product',
+                'Can publish product'
+            ),
+            (
+                'change_description_product',
+                'Can change description'
+            ),
+            (
+                'change_category_product',
+                'Can change category product'
+            )
+        ]
 
 
 class Category(models.Model):

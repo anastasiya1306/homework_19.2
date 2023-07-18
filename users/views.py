@@ -1,6 +1,7 @@
 import random
 
 from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.shortcuts import redirect
@@ -15,7 +16,7 @@ from users.forms import UserForm, UserRegisterForm
 from users.models import User
 
 
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserForm
     success_url = reverse_lazy('users:profile')
