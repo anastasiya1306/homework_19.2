@@ -5,7 +5,8 @@ from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, Blog, Version
+from catalog.models import Product, Blog, Version, Category
+from catalog.services import get_cache_categories
 
 
 class ProductListView(LoginRequiredMixin, ListView):
@@ -13,6 +14,11 @@ class ProductListView(LoginRequiredMixin, ListView):
     extra_context = {
         'title': 'Главная'
     }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_list'] = get_cache_categories()
+        return context
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -65,6 +71,18 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
 
     def test_func(self):
         return self.request.user.is_superuser
+
+
+class CategoryListView(ListView):
+    model = Category
+    extra_context = {
+        'title': 'Категории',
+    }
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data['category_list'] = get_cache_categories()
+        return context_data
 
 
 class BlogListView(ListView):
