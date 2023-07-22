@@ -7,3 +7,5 @@ pillow
 ipython
 transliterate
 python-slugify
+python-dotenv
+redis

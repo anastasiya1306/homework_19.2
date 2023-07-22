@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -47,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -126,20 +130,29 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#настройка хост-сервера электронной почты в для письма с подтверждением
+# настройка хост-сервера электронной почты в для письма с подтверждением
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465   #порт SMTP для yandex
-EMAIL_HOST_USER = 'anastasiyab2010@yandex.ru'
-EMAIL_HOST_PASSWORD = 'pzzuhavilkmpwnct'    #полученный пароль для приложения
+EMAIL_PORT = 465  # порт SMTP для yandex
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # полученный пароль для приложения
 EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True  #использовать защищенное соединение
+EMAIL_USE_SSL = True  # использовать защищенное соединение
 
-EMAIL_SERVER = EMAIL_HOST_USER    #email сервера
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER    #с какого адреса будут отправляться письма
-EMAIL_ADMIN = EMAIL_HOST_USER    #email, куда будут все данные приходить с сайта
+EMAIL_SERVER = EMAIL_HOST_USER  # email сервера
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # с какого адреса будут отправляться письма
+EMAIL_ADMIN = EMAIL_HOST_USER  # email, куда будут все данные приходить с сайта
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/users/'
+
+CACHE_ENABLED = os.getenv('CACHE_ENABLED') == '1'
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": os.getenv('CACHE_LOCATION'),
+    }
+}
