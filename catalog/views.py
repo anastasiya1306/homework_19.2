@@ -20,6 +20,11 @@ class ProductListView(LoginRequiredMixin, ListView):
         context['category_list'] = get_cache_categories()
         return context
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.user.has_perm('catalog.change_description_product'):
+            return queryset
+        return queryset
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
