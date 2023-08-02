@@ -28,13 +28,11 @@
                             <h7>Активная версия: {{ version.name_version }}</h7>
                         {% endif %}
                     {% endfor %}
-                    {% if user.is_authenticated %}
-                        {% if object.user == user.email or perms.catalog.change_description_product %}
-                            <a class="alert-danger" href="{% url 'main:product_update' object.pk %}">>>Изменить</a>
-                        {% endif %}
-                        {% if user.is_superuser %}
-                            <a class="alert-warning" href="{% url 'main:product_delete' object.pk %}">>>Удалить</a>
-                        {% endif %}
+                    {% if object.user == user.email or perms.catalog.change_description_product %}
+                        <a class="alert-danger" href="{% url 'main:product_update' object.pk %}">>>Изменить</a>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <a class="alert-warning" href="{% url 'main:product_delete' object.pk %}">>>Удалить</a>
                     {% endif %}
                 </div>
                 <img src="{% mediapath object.preview %}" style="max-width: 20%;" alt="Image">

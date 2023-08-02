@@ -26,6 +26,7 @@ class ProductListView(LoginRequiredMixin, ListView):
             return queryset
         return queryset
 
+
 class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
@@ -59,6 +60,9 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             formset.save()
 
         return super().form_valid(form)
+
+    def test_func(self):
+        return self.request.user.has_perm(perm='catalog.change_description_product')
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
